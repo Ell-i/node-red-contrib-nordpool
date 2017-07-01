@@ -42,6 +42,7 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
+    "moment": "^2.18.1",
     "node-fetch": "^1.6.3",
     "uri-js": "https://github.com/Ell-i/uri-js/tarball/f3c16704228c48c45181523e59f2cfa6501b3548"
   }

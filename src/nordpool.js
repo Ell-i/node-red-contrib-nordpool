@@ -12,6 +12,7 @@ module.exports = function(RED) {
 
     const fetch = require('node-fetch');
     const url = require('uri-js');
+    const moment = require('moment');
 
     function NordpoolNode(options) {
 	RED.nodes.createNode(this, options);
@@ -25,20 +26,22 @@ module.exports = function(RED) {
 	function _makeURL(baseURL) {
 	    var page, start;
 	    switch (node.options.period) {
-	    case 'Hourly':  page += '10'; start = moment().substract(24, 'hours'); break;
-	    case 'Daily':   page += '11'; start = moment().substract(30, 'days' ); break;
-	    case 'Weekly':  page += '12'; start = moment().substract(52, 'weeks'); break;
+	    case 'Hourly':  page = '10'; start = moment().subtract(24, 'hours'); break;
+	    case 'Daily':   page = '11'; start = moment().subtract(30, 'days' ); break;
+	    case 'Weekly':  page = '12'; start = moment().subtract(52, 'weeks'); break;
 	    }
 	    const c = node.options.currency;
-	    return baseURL + 'marketdata/page/' + page +
+	    return baseURL + '/marketdata/page/' + page +
 		'?currency=,' + c + ',' + c + ',' + c +
-		'&startDate' + start.format("DD-MM-YYYY");
+		'&startDate=' + start.format("DD-MM-YYYY") +
+		'&endDate=' + moment().format("DD-MM-YYYY");
 	}
 
 	async function _request(msg) {
 	    try {
 		const url = _makeURL(msg.url || node.options.baseUrl);
-		const res  = await fetch_as_JSON(url, node.options.fetch);
+		console.log('Nordpool: Fetching URL ' + url);
+		const res  = await fetch(url, node.options.fetch);
 		const json = await res.json();
 		const newMsg = Object.assign({}, msg, {
                     payload: json,
