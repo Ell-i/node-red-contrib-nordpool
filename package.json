@@ -1,0 +1,26 @@
+{
+  "name": "node-red-contrib-nordpool",
+  "version": "0.0.1",
+  "description": "Nordpool Elspot support in Node-RED",
+  "scripts": {
+    "test": "NODE_ENV=test mocha --require ./test/test_helper.js --compilers js:babel-core/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ell-i/node-red-contrib-nordpool.git"
+  },
+  "keywords": [
+    "node-red",
+    "node-red-contrib",
+  ],
+  "node-red": {
+    "nodes": {
+      "nordpool": "src/nordpool.js"
+    }
+  },
+  "author": {
+    "name": "Pekka Nikander",
+    "email": "pekka.nikander@iki.fi"
+  },
+  "license": "MIT"
+}
