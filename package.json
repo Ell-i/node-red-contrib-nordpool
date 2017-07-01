@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Nordpool Elspot support in Node-RED",
   "scripts": {
-    "test": "NODE_ENV=test mocha --require ./test/test_helper.js --compilers js:babel-core/register"
+    "test": "NODE_ENV=test mocha --require ./test/test_helper.js"
   },
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   },
   "keywords": [
     "node-red",
-    "node-red-contrib",
+    "node-red-contrib"
   ],
   "node-red": {
     "nodes": {
@@ -22,5 +22,27 @@
     "name": "Pekka Nikander",
     "email": "pekka.nikander@iki.fi"
   },
-  "license": "MIT"
+  "bugs": {
+    "url": "https://github.com/Ell-i/node-red-contrib-nordpool/issues"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "files": [
+    "src/",
+    "test/"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "chai-immutable": "^1.6.0",
+    "chai-stream": "0.0.0",
+    "immutable": "^3.8.1",
+    "mocha": "^3.2.0"
+  },
+  "dependencies": {
+    "node-fetch": "^1.6.3",
+    "uri-js": "https://github.com/Ell-i/uri-js/tarball/f3c16704228c48c45181523e59f2cfa6501b3548"
+  }
 }

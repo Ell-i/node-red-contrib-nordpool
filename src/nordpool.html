@@ -1,0 +1,75 @@
+<!--
+    Copyright 2017 Ell-i open source co-operative
+
+    Licensed under the MIT License, see LICENSE
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType('nordpool', {
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            baseUrl: {value:"http://www.nordpoolspot.com/api"},
+            currency: {
+                value: "EUR",
+                validate: function(v) {
+		    return [ "EUR", "USD" ].contains(v);
+		}
+	    },
+	    period: {
+		value: "Hourly",
+		validate: function(v) {
+		    return [ "Hourly", "Daily", "Weekly" ].contains(v);
+		}
+	    },
+            name: {value:"Nordpool"}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "white-globe.png",
+        align: "right",
+        label: function() {
+            return this.name || "Nordpool";
+        },
+        labelStyle: function() {
+            return this.name ? "node_label_italic" : "";
+        },
+    });
+</script>
+
+<script type="text/x-red" data-template-name="nordpool">
+    <div class="form-row">
+        <label for="node-input-baseUrl"><i class="fa fa-globe"></i> Base URL</label>
+        <input type="text" id="node-input-baseUrl" placeholder="http://www.nordpoolspot.com/api"/>
+    </div>
+    <div class="form-row">
+        <label for="node-input-currency"><i class="fa fa-tasks"></i> Currency</label>
+        <select id="node-input-currency">
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-period"><i class="fa fa-tasks"></i> Frequency</label>
+        <select id="node-input-period">
+          <option value="Hourly">Hourly</option>
+          <option value="Daily">Daily</option>
+          <option value="Weekly">Weekly</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Nordpool"/>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="coap request">
+    <p>Provides a node for fetching electricity prices from Nordpool Elspot.</p>
+
+    <p>Base URL, currency and data frequency can be configured.</p>
+
+    <p>The following properties may be set on the message object:</p>
+    <ul>
+        <li><code>url</code> will override the Base URL.</li>
+    </ul>
+</script>
