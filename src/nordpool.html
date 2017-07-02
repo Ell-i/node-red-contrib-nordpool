@@ -10,16 +10,25 @@
         color: '#a6bbcf',
         defaults: {
             baseUrl: {value:"http://www.nordpoolspot.com/api"},
+	    area: {
+		value: "SYS",
+		validate: function(v) {
+		    return [ "SYS", "SE1", "SE2", "SE3", "SE4", "FI", "DK1", "DK2",
+			     "EE", "LV", "LT",
+			     "Oslo", "Kr.sand", "Bergen", "Molde", "Tr.heim", "Tromsø"
+                           ].includes(v);
+		}
+	    },
             currency: {
                 value: "EUR",
                 validate: function(v) {
-		    return [ "EUR", "USD" ].contains(v);
+		    return [ "EUR", "DKK", "NOK", "SEK" ].includes(v);
 		}
 	    },
 	    period: {
 		value: "Hourly",
 		validate: function(v) {
-		    return [ "Hourly", "Daily", "Weekly" ].contains(v);
+		    return [ "Hourly", "Daily", "Weekly" ].includes(v);
 		}
 	    },
             name: {value:"Nordpool"}
@@ -42,11 +51,28 @@
         <label for="node-input-baseUrl"><i class="fa fa-globe"></i> Base URL</label>
         <input type="text" id="node-input-baseUrl" placeholder="http://www.nordpoolspot.com/api"/>
     </div>
+    <div class="from-row">
+        <label for="node-input-area"><i class="fa fa-globe"></i> Area</label>
+        <select id="node-input-area">
+	  <option vlaue="SYS">Unspecified</option>
+          <option value="FI">Finland</option>
+          <option value="EE">Estonia</option>
+          <option value="LV">Latvia</option>
+          <option value="LT">Lithuania</option>
+          <option value="Oslo">Oslo</option>
+          <option value="Bergen">Bergen</option>
+          <option value="Molde">Molde</option>
+          <option value="Tr.heim">Trondheim</option>
+          <option value="Tromsø">Tromsø</option>
+        </select>
+    </div>
     <div class="form-row">
         <label for="node-input-currency"><i class="fa fa-tasks"></i> Currency</label>
         <select id="node-input-currency">
           <option value="EUR">EUR</option>
-          <option value="USD">USD</option>
+          <option value="DKK">DKK</option>
+          <option value="NOK">NOK</option>
+          <option value="SEK">SEK</option>
         </select>
     </div>
     <div class="form-row">
