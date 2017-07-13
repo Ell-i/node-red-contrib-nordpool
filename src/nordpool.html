@@ -13,25 +13,18 @@
 	    area: {
 		value: "SYS",
 		validate: function(v) {
+                    /* As I don't know what all of these mean, some are not in the menu */
 		    return [ "SYS", "SE1", "SE2", "SE3", "SE4", "FI", "DK1", "DK2",
 			     "EE", "LV", "LT",
 			     "Oslo", "Kr.sand", "Bergen", "Molde", "Tr.heim", "Tromsø"
                            ].includes(v);
 		}
 	    },
-            currency: {
-                value: "EUR",
-                validate: function(v) {
-		    return [ "EUR", "DKK", "NOK", "SEK" ].includes(v);
-		}
-	    },
-	    period: {
-		value: "Hourly",
-		validate: function(v) {
-		    return [ "Hourly", "Daily", "Weekly" ].includes(v);
-		}
-	    },
-            name: {value:"Nordpool"}
+            currency: { value: "EUR", },
+	    page:     { value: "10" },
+	    start:    { value: "PT12H" },
+	    duration: { value: "P1D" },
+            name:     { value:"Nordpool"}
         },
         inputs:1,
         outputs:1,
@@ -42,7 +35,7 @@
         },
         labelStyle: function() {
             return this.name ? "node_label_italic" : "";
-        },
+        }
     });
 </script>
 
@@ -76,12 +69,39 @@
         </select>
     </div>
     <div class="form-row">
-        <label for="node-input-period"><i class="fa fa-tasks"></i> Frequency</label>
-        <select id="node-input-period">
-          <option value="Hourly">Hourly</option>
-          <option value="Daily">Daily</option>
-          <option value="Weekly">Weekly</option>
+        <label for="node-input-page"><i class="fa fa-tasks"></i> Frequency</label>
+        <select id="node-input-page">
+          <option value="10">Hourly</option>
+          <option value="11">Daily</option>
+          <option value="12">Weekly</option>
         </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-start"><i class="fa fa-tasks"></i> From</label>
+        <select id="node-input-start">
+	    <option value="PT0H">now</option>
+	    <option value="PT1H">an hour ago</option>
+	    <option value="PT6H">6 hours ago</option>
+	    <option value="PT12H">12 hours ago</option>
+	    <option value="P1D">a day ago</option>
+	    <option value="P1W">a week ago</option>
+	    <option value="P1M">a month ago</option>
+	    <option value="P1Y">a year ago</option>
+	</select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-duration"><i class="fa fa-tasks"></i> for </label>
+        <select id="node-input-duration">
+	    <option value="PT1H">one hour</option>
+	    <option value="PT2H">two hours</option>
+	    <option value="PT12H">12 hours</option>
+	    <option value="P1D">one day</option>
+	    <option value="P2D">two days</option>
+	    <option value="P1W">one week</option>
+	    <option value="P2W">two weeks</option>
+	    <option value="P1M">one month</option>
+	    <option value="P1Y">one year</option>
+	</select>
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
@@ -89,10 +109,10 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="coap request">
+<script type="text/x-red" data-help-name="nordpool">
     <p>Provides a node for fetching electricity prices from Nordpool Elspot.</p>
 
-    <p>Base URL, currency and data frequency can be configured.</p>
+    <p>Base URL, currency, data frequency can be configured.</p>
 
     <p>The following properties may be set on the message object:</p>
     <ul>

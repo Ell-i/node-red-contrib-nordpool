@@ -4,7 +4,7 @@ This project adds Nordpool Elspot support to [Node-RED](http://nodered.org/).
 
 Functionality
 -------------
- We introduce a "nordpool" node that can be used to retrieve spot electricity prices from Nordpool, either periodically or triggered.
+We introduce a "nordpool" node that can be used to retrieve spot electricity prices from Nordpool, either periodically or triggered.
 
 Install
 -------

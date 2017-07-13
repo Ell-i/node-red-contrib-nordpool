@@ -23,23 +23,23 @@ module.exports = function(RED) {
             'headers' : Object.assign({}, DefaultFetchHeaders, node.options.headers)
         };
 
-        function _getPageAndStart(now, options) {
-            switch (options.period) {
-            case 'Hourly':  return {page:'10', start:now.subtract(24, 'hours')};
-            case 'Daily':   return {page:'11', start:now.subtract(30, 'days' )};
-            case 'Weekly':  return {page:'12', start:now.subtract(52, 'weeks')};
-            default: throw new Error('Unknown period ' + options.period);
-            }
-        }
-
         function _makeURL(baseURL) {
-            const now = moment().utc();
-            const {page, start} = _getPageAndStart(now, node.options);
-            const c = node.options.currency;
+	    console.log(JSON.stringify(node.options));
+	    const page     = node.options.page;
+            const now      = moment().utc();
+	    const offset   = moment.duration(node.options.start);
+	    const start    = now.subtract(offset);
+	    const startday = start.startOf('day');
+	    const duration = moment.duration(node.options.duration);
+	    const end      = start.add(duration);
+	    const endday   = end.add(24, 'hours').endOf('day');
+	    console.log("offset = " + offset + ", duration = " + duration +
+			", start = " + start + ", end = " + end);
+            const c =     node.options.currency;
             return baseURL + '/marketdata/page/' + page +
                 '?currency=,' + c + ',' + c + ',' + c +
-                '&startDate=' + start.format("DD-MM-YYYY") +
-                '&endDate='   + now.format(  "DD-MM-YYYY");
+                '&startDate=' + startday.format("DD-MM-YYYY") +
+                '&endDate='   + endday.format(  "DD-MM-YYYY");
         }
 
         function _process(json) {
