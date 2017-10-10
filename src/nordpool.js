@@ -24,17 +24,17 @@ module.exports = function(RED) {
         };
 
         function _makeURL(baseURL) {
-	    console.log(JSON.stringify(node.options));
-	    const page     = node.options.page;
+            console.log(JSON.stringify(node.options));
+            const page     = node.options.page;
             const now      = moment().utc();
-	    const offset   = moment.duration(node.options.start);
-	    const start    = now.subtract(offset);
-	    const startday = start.startOf('day');
-	    const duration = moment.duration(node.options.duration);
-	    const end      = start.add(duration);
-	    const endday   = end.add(24, 'hours').endOf('day');
-	    console.log("offset = " + offset + ", duration = " + duration +
-			", start = " + start + ", end = " + end);
+            const offset   = moment.duration(node.options.start);
+            const start    = now.clone().subtract(offset);
+            const startday = start.clone().startOf('day');
+            const duration = moment.duration(node.options.duration);
+            const end      = start.clone().add(duration);
+            const endday   = end.clone().add(24, 'hours').endOf('day');
+            console.log("now = " + now + ", offset = " + offset + ", duration = " + duration +
+                        ", start = " + start + ", end = " + end, ", startday = " + startday);
             const c =     node.options.currency;
             return baseURL + '/marketdata/page/' + page +
                 '?currency=,' + c + ',' + c + ',' + c +
